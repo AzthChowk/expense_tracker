@@ -1,18 +1,34 @@
 [
     {
         "Id": 1,
-        "Date": "2025-6-15",
-        "Title": "food",
+        "Date": "2025-06-25",
         "Category": "food",
-        "Amount": 150,
-        "Description": "food"
+        "Title": "pizza",
+        "Amount": 1600,
+        "Description": "pizza treat for friends"
     },
     {
         "Id": 2,
-        "Date": "2025-02-12",
-        "Title": "pizza",
-        "Category": "food",
+        "Date": "2025-04-06",
+        "Category": "lifestyle",
+        "Title": "pant",
+        "Amount": 5000,
+        "Description": "levis"
+    },
+    {
+        "Id": 3,
+        "Date": "2025-5-5",
+        "Category": "health",
+        "Title": "health check up",
+        "Amount": 6000,
+        "Description": "health yearly check up"
+    },
+    {
+        "Id": 4,
+        "Date": "2024-6-18",
+        "Category": "housing",
+        "Title": "rent",
         "Amount": 1500,
-        "Description": "pizza treat"
+        "Description": "house rent march 2025"
     }
 ]

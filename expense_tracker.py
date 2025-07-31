@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+
 import pandas as pd
 
     
@@ -19,15 +20,17 @@ def add_expenses(expenses, exp_date, exp_title, exp_category, exp_amount, exp_de
         expense = {
         "Id": len(expenses)+1,
         "Date": exp_date,
-        "Title":exp_title,
         "Category":exp_category,
+        "Title":exp_title,
         "Amount":exp_amount,
         "Description":exp_description
         }
         expenses.append(expense)
 def print_expense_list(expenses):
-     for expense in expenses:
-          print(expense)
+     df = pd.DataFrame(expenses)
+     print(df)
+    #  for expense in expenses:
+    #       print(expense)
 
 def main():
     expenses = load_expenses()
@@ -37,8 +40,8 @@ def main():
         choice = input("Enter choice : ")
         if choice == "1":
             exp_date = input("Enter date (YYYY-MM-DD): ")
+            exp_category = input("Enter expense category.\n Food, Transportation, Lifestyle, Health, Housing, Entertainment, Savinga and Payment, Pets, Education, Other : ").lower()
             exp_title = input("Enter expense title : ")
-            exp_category = input("Enter expense category - Food, Transportation, Lifestyle, Health, Housing, Entertainment, Savinga and Payment, Pets, Education, Other : ").lower()
             exp_amount = int(input("Enter the amount : "))
             exp_description = input("Enter the description : ")
 
@@ -50,9 +53,8 @@ def main():
             #     if (choice!="yes"):
             #         break
         elif choice =="2":
-            print("\n Expense List \n")
-            for i in expenses:
-                print(i)
+            print_expense_list(expenses)
+
         elif choice =="3":
             break
         else:
