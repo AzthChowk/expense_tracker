@@ -1,0 +1,31 @@
+[
+    {
+        "id": 1,
+        "date": "2025-06-25",
+        "amount": 1500.0,
+        "category": "Food",
+        "description": "Fooding"
+    },
+    {
+        "id": 1,
+        "particulars": "milk",
+        "rate": 100
+    },
+    {
+        "id": 2,
+        "particulars": "milk",
+        "rate": 200
+    },
+    {
+        "id": 2,
+        "particulars": "milk",
+        "rate": 200
+    },
+    {
+        "id": 5,
+        "date": "2025-06-25",
+        "amount": 150.0,
+        "category": "food",
+        "description": "food"
+    }
+]
