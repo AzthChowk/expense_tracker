@@ -1,8 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import os
-
-import matplotlib.pyplot as plt
+import matplotlib
 
 CSV_FILE = "expenses.csv"
 
@@ -35,25 +34,6 @@ def print_expense_list(expenses):
     else:
         print(df)
 
-def visualize_summary(category_summary):
-    summary_data = []
-    summary_category = ["education","entertainment","food","health","housing","lifestyle","other","saving and investment","transportation"]
-    for i in category_summary:
-        summary_data.append(i)
- 
-    # Create bar plot
-    plt.bar(summary_category, summary_data)
-    
-    # Add labels and title
-    plt.xlabel('Categories')
-    plt.ylabel('Values')
-    plt.title('Simple Bar Plot')
-    
-    # # Show plot
-    plt.show()
-
-    
-
 def view_summary(expenses):
     if not expenses:
         print("No expenses to summarize.")
@@ -65,11 +45,10 @@ def view_summary(expenses):
         df["Amount"] = pd.to_numeric(df["Amount"], errors='coerce')  # Convert to numeric
         total_expenses = df["Amount"].sum() # DataFrame Function to all the values - sum()
         print("\nTotal Expenses: ",total_expenses)
-        
+
         category_summary = df.groupby("Category")["Amount"].sum() # Dataframe Function - groupby()
         print("\nCategory-wise Summary:")
         print(category_summary)
-        visualize_summary(category_summary)
   
 
 
