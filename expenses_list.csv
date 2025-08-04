@@ -1,0 +1,11 @@
+Id,Date,Category,Title,Amount,Payment method,Description
+f3903537-2b1b-4df9-a1bf-ec2150d4ff24,2025-01-01,food,pizza,1500.0,cash,pizza
+1c709ad3-dc0d-4727-aa85-bf0243d19696,2025-01-02,transportation,2000,2000.0,cash,gasoline
+1e117dfd-7847-4b3b-8d89-3a9c03178887,2025-01-03,lifestyle,levis 512 pant,6000.0,qr,levis 512
+9947279a-09f3-472b-b0df-1f4d824c032e,2025-01-04,health,yearly check up with Dr. Sharma,5600.0,cash,health full body check up
+c0490a8a-a5d8-4194-8688-f00c3ff73364,2025-01-05,housing,rent,20000.0,cash,rent jan 2025
+74f50ac3-8d5e-41f4-af2d-41c0c3913ce2,2025-01-06,entertainment,movie ,1500.0,qr,gjina
+36d94b89-c6b7-4541-870e-bd8e097ef1ff,2025-01-07,savings,saving,6000.0,cash,"bank deposit, saving account"
+8f79aa2f-f68d-4062-91b0-0d01c414235f,2025-01-09,pets,croods,100.0,cash,croods
+28a5df01-825c-43e2-99fc-127f882181a9,2025-01-12,education,adminssion course,15000.0,cash,data scince course
+3ebc8fd4-f610-4274-9345-4cf002d830bf,2025-01-25,other,fox,15.0,cash,method

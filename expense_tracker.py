@@ -1,32 +1,42 @@
 import pandas as pd
 from datetime import datetime
 import os
-
+import uuid
 import matplotlib.pyplot as plt
+from view_summary import view_summary
+from categories import *
 
-CSV_FILE = "expenses.csv"
 
+current_time = datetime.now()
+
+CSV_FILE = "expenses_list.csv"
+
+# Load the file; if not found, creates a empty list
 def load_expenses(filename=CSV_FILE):
     if os.path.exists(filename):
         return pd.read_csv(filename).to_dict(orient="records")
     else:
         return []
+    
 # save the input to csv format - previously, saved as json format
 def save_expenses(expenses, filename=CSV_FILE):
     df = pd.DataFrame(expenses)
     df.to_csv(filename, index=False)
 
-def add_expenses(expenses, exp_date, exp_title, exp_category, exp_amount, exp_description):
+# add the input to the file
+def add_expenses(expenses, exp_date, exp_title, exp_category, exp_amount,exp_payment, exp_description):
     datetime.strptime(exp_date, "%Y-%m-%d")  # Validate date format
     expense = {
-        "Id": len(expenses) + 1,
+        "Id": uuid.uuid4(),
         "Date": exp_date,
         "Category": exp_category,
         "Title": exp_title,
         "Amount": exp_amount,
+        "Payment method": exp_payment,
         "Description": exp_description
     }
     expenses.append(expense)
+    print("Expense added successfully.")
 
 def print_expense_list(expenses):
     df = pd.DataFrame(expenses)
@@ -35,75 +45,63 @@ def print_expense_list(expenses):
     else:
         print(df)
 
-def visualize_summary(category_summary):
-    summary_data = []
-    summary_category = ["education","entertainment","food","health","housing","lifestyle","other","saving and investment","transportation"]
-    for i in category_summary:
-        summary_data.append(i)
- 
-    # Create bar plot
-    plt.bar(summary_category, summary_data)
-    
-    # Add labels and title
-    plt.xlabel('Categories')
-    plt.ylabel('Values')
-    plt.title('Simple Bar Plot')
-    
-    # # Show plot
-    plt.show()
-
-    
-
-def view_summary(expenses):
-    if not expenses:
-        print("No expenses to summarize.")
-        return
-
-    df = pd.DataFrame(expenses)
-
-    try:
-        df["Amount"] = pd.to_numeric(df["Amount"], errors='coerce')  # Convert to numeric
-        total_expenses = df["Amount"].sum() # DataFrame Function to all the values - sum()
-        print("\nTotal Expenses: ",total_expenses)
-        
-        category_summary = df.groupby("Category")["Amount"].sum() # Dataframe Function - groupby()
-        print("\nCategory-wise Summary:")
-        print(category_summary)
-        visualize_summary(category_summary)
-  
-
-
-    except Exception as e:
-        print(f"Error calculating summary: {e}")
 
 
 def main():
     expenses = load_expenses()
 
     while True:
-        print("\nExpense Tracker\n1. Add expense \n2. View expenses \n3. View Summary \n4. Exit")
+        print("\nExpense Tracker\n1. Add Expense \n2. View Expense list \n3. Update Expense \n4. Delete Expense \n5. View Summary \n6. Exit \n")
         choice = input("Enter choice : ")
 
         if choice == "1":
-            exp_date = input("Enter date (YYYY-MM-DD): ")
-            exp_category = input("Enter expense category.\n Food, Transportation, Lifestyle, Health, Housing, Entertainment, Savinga and Payment, Pets, Education, Other : ").lower()
-            exp_title = input("Enter expense title: ")
-            exp_amount = float(input("Enter the amount: "))
-            exp_description = input("Enter the description: ")
+            while True:
+                try:
+                    exp_date = input("Enter a date (YYYY-MM-DD) : ")
+                    valid_date = datetime.strptime(exp_date, "%Y-%m-%d").date()
+                    if current_time.date() > valid_date:
+                        break
+                except:
+                    print("Invalid date, Check the date. Please enter in YYYY-MM-DD format.")
 
-            add_expenses(expenses, exp_date, exp_title, exp_category, exp_amount, exp_description)
+            while True:
+                try:
+                    exp_category = input("Enter expense category.\n Food, Transportation, Lifestyle, Health, Housing, Entertainment, Savings and Payment, Pets, Education, Other : ").lower()
+                    if exp_category.strip().title() in valid_categories:
+                        break
+                except:
+                    print("Enter the valid category")
+
+            exp_title = input("Enter expense title : ")
+            while True:
+                try:
+                    exp_amount = float(input("Enter the amount : "))
+                    if exp_amount>0:
+                        break
+                except ValueError:
+                    print("Enter proper amount")
+            exp_payment = input("Mode of payment : ")
+            exp_description = input("Enter the description : ")
+
+            add_expenses(expenses, exp_date, exp_title, exp_category, exp_amount, exp_payment, exp_description)
             save_expenses(expenses)
-            print("Expense added successfully.")
 
         elif choice == "2":
             print_expense_list(expenses)
 
         elif choice == "3":
-            view_summary(expenses)
-
+            print('update section')
 
         elif choice == "4":
+            print("delete section")
+            break
+        elif choice == "5":
+            view_summary(expenses)
+            
+        elif choice == "6":
             break
         else:
             print("Invalid choice. Try again.")
 main()
+
+
