@@ -5,6 +5,7 @@ import uuid
 import matplotlib.pyplot as plt
 from view_summary import view_summary
 from categories import *
+from visualize_data import *
 
 
 current_time = datetime.now()
@@ -51,7 +52,7 @@ def main():
     expenses = load_expenses()
 
     while True:
-        print("\nExpense Tracker\n1. Add Expense \n2. View Expense list \n3. Update Expense \n4. Delete Expense \n5. View Summary \n6. Exit \n")
+        print("\nExpense Tracker\n1. Add Expense \n2. View Expense list \n3. Update Expense \n4. View Summary \n5. Visualize Data \n6. Exit \n")
         choice = input("Enter choice : ")
 
         if choice == "1":
@@ -93,10 +94,10 @@ def main():
             print('update section')
 
         elif choice == "4":
-            print("delete section")
+            view_summary(expenses)
             break
         elif choice == "5":
-            view_summary(expenses)
+            visualize_data(expenses)
             
         elif choice == "6":
             break

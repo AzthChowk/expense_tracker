@@ -10,18 +10,18 @@ from categories import valid_categories
 
 # valid_categories.sort()
 
-def visualize_summary(category_summary):
+# def visualize_bar(category_summary):
  
-    # Create bar plot
-    plt.bar(valid_categories, category_summary)
+#     # Create bar plot
+#     plt.bar(valid_categories, category_summary)
     
-    # Add labels and title
-    plt.xlabel('Categories')
-    plt.ylabel('Values')
-    plt.title('Simple Bar Plot')
+#     # Add labels and title
+#     plt.xlabel('Categories')
+#     plt.ylabel('Values')
+#     plt.title('Simple Bar Plot')
     
-    # # Show plot
-    plt.show()
+#     # # Show plot
+#     plt.show()
 
 
 def view_summary(expenses):
@@ -37,12 +37,9 @@ def view_summary(expenses):
         print("\nTotal Expenses: ",total_expenses)
         # by default the groupby() sort in alphabetcial order - so to display as your desire - change sort = False
         category_summary = df.groupby(["Category"], sort=False)["Amount"].sum() # Dataframe Function - groupby()
-        print("\nCategory-wise Summary:")
+        print("\nCategory-wise Summary: \n")
         print(category_summary)
-        visualize_summary(category_summary)
-  
-
+ 
     except Exception as e:
         print(f"Error calculating summary: {e}")
-
 
