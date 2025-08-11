@@ -1,57 +1,52 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
-from categories import valid_categories
-# category_length = len(valid_categories)
-# print(category_length)
-# summary_data = [0 for i in range(category_length)]
-# summary_data[5] = 600
-# print(summary_data)
-
-# valid_categories.sort()
+import plotly.express as px
 
 
- 
+def visualize_bar(expenses):
+    # converting to Dataframe
+    df= pd.DataFrame(expenses)
+    # converting amount to numerical value
+    df['Amount'] = pd.to_numeric(df["Amount"],errors='coerce')
+    # grouping the data into its category
+    df= df.groupby(["Category"], sort=False)["Amount"].sum().reset_index()
+    # Draw Bar Graph
+    print("Printing Bar Chart......")
+    fig = px.bar(df, x='Category', y='Amount', title = "Category-wise expenses", labels={'Amount':"Total Amount",'Category':"Expense categories"}, color = "Category")
+    fig.show()
 
+def visualize_pie(expenses):
+    df = pd.DataFrame(expenses)
+    df['Amount'] = pd.to_numeric(df["Amount"],errors='coerce')
+    # grouping the data into its category
+    df= df.groupby(["Category"], sort=False)["Amount"].sum().reset_index()
+    print("Printing Pie Chart......")
+    fig = px.pie(df, values='Amount', names='Category', title='Category-wise expenses')
+    fig.show()
 
-def visualize_bar(expenses,category_summary):
-    print("Bar Chart")
-    # Create bar plot
-    plt.bar(valid_categories, category_summary)
-    
-    # Add labels and title
-    plt.xlabel('Categories')
-    plt.ylabel('Values')
-    plt.title('Simple Bar Plot')
-    
-    # # Show plot
-    plt.show()
-def visualize_pie(category_summary):
-    print("Pie Chart")
-    plt.pie(category_summary, labels=valid_categories, autopct='%1.1f%%')
-    plt.show() 
+# Scatter Plot
+def visualize_scatter(expenses):
+    df = pd.DataFrame(expenses)    
+    fig = px.scatter(df, x="Date", y="Amount",color='Date', hover_data=['Title'])
+    fig.show()
 
 def visualize_data(expenses):
-    df = pd.DataFrame(expenses)
-
-    df["Amount"] = pd.to_numeric(df["Amount"], errors='coerce')  # Convert to numeric
-    total_expenses = df["Amount"].sum() # DataFrame Function to all the values - sum()
-    # by default the groupby() sort in alphabetcial order - so to display as your desire - change sort = False
-    category_summary = df.groupby(["Category"], sort=False)["Amount"].sum() # Dataframe Function - groupby()
-
     while True:
         print("Visualize data")
-        print("\t5.1 Bar Chart ")
-        print("\t5.2 Pie Chart ")
+        print("\ta Bar Chart ")
+        print("\tb Pie Chart ")
+        print("\tc Scatter Plot ")
+        print("\td Area Plot ")
         break
     choice = input("Enter the choice : ")
     if choice == ("a"):
-
-        visualize_bar(expenses, category_summary)
+        visualize_bar(expenses)
         
     elif choice ==("b"):
-  
-        visualize_pie(category_summary)
+        visualize_pie(expenses)
+        
+    elif choice ==("c"):
+        visualize_scatter(expenses)
         
     else:
         print("Invalid option")
